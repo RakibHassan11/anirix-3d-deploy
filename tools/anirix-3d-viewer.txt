@@ -1,5 +1,5 @@
 # 📁 ANIRIX ENGINE SOURCE
-Generated: 2025-12-30T10:21:58.736Z
+Generated: 2025-12-31T04:26:04.574Z
 
 📂 STRUCTURE
 ├── README.md
@@ -80,7 +80,6 @@ Generated: 2025-12-30T10:21:58.736Z
 │               └── Toolbar.tsx
 ├── tools
 │   ├── anirix-3d-viewer.txt
-│   ├── anirix-engine-full.txt
 │   ├── combine-files.js
 │   └── combine-selected-modules.js
 └── tsconfig.json

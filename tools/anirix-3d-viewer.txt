@@ -1,3 +1,164 @@
+# 📁 ANIRIX ENGINE SOURCE
+Generated: 2025-12-30T10:21:58.736Z
+
+📂 STRUCTURE
+├── README.md
+├── eslint.config.mjs
+├── messages
+│   └── en.json
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   ├── environments
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── textures
+│   ├── vercel.svg
+│   └── window.svg
+├── src
+│   ├── app
+│   │   ├── [locale]
+│   │   │   ├── page.tsx
+│   │   │   └── workbench
+│   │   │       └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── assets
+│   │   └── textures
+│   ├── core-engine
+│   │   ├── components
+│   │   │   ├── annotations
+│   │   │   │   └── Pin.tsx
+│   │   │   ├── canvas
+│   │   │   │   ├── Effects.tsx
+│   │   │   │   └── Viewport.tsx
+│   │   │   ├── model
+│   │   │   │   └── Model.tsx
+│   │   │   └── stage
+│   │   │       └── Environment.tsx
+│   │   ├── core
+│   │   │   ├── camera-controller.ts
+│   │   │   ├── exporter.ts
+│   │   │   ├── loaders.ts
+│   │   │   ├── materials.ts
+│   │   │   └── scene-math.ts
+│   │   ├── hooks
+│   │   │   ├── use-animations.ts
+│   │   │   └── use-raycaster.ts
+│   │   ├── index.ts
+│   │   ├── store
+│   │   │   └── use-viewer.ts
+│   │   └── types
+│   │       └── engine.ts
+│   ├── i18n.ts
+│   ├── infrastructure
+│   │   ├── api
+│   │   │   └── settings-api.ts
+│   │   └── validators
+│   │       ├── gpu-detector.ts
+│   │       └── model-validator.ts
+│   ├── middleware.ts
+│   └── presentation
+│       ├── components
+│       │   ├── ControlButton.tsx
+│       │   ├── Slider.tsx
+│       │   └── Toggle.tsx
+│       └── ui
+│           ├── inspector
+│           │   ├── MaterialEditor.tsx
+│           │   ├── SceneTree.tsx
+│           │   └── Sidebar.tsx
+│           ├── layout
+│           │   └── ViewerLayout.tsx
+│           └── viewer-ui
+│               └── Toolbar.tsx
+├── tools
+│   ├── anirix-3d-viewer.txt
+│   ├── anirix-engine-full.txt
+│   ├── combine-files.js
+│   └── combine-selected-modules.js
+└── tsconfig.json
+
+
+📦 FILES
+
+== FILE: README.md [Infrastructure/Setup] ==
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+== FILE: messages/en.json [Infrastructure/Setup] ==
+
+{ "Workbench": { "title": "Anirix Engine Core" } }
+
+
+== FILE: next-env.d.ts [Infrastructure/Setup] ==
+
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+import "./.next/dev/types/routes.d.ts";
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+
+
+
+== FILE: next.config.ts [Infrastructure/Setup] ==
+
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+
+
+
+== FILE: package-lock.json [Infrastructure/Setup] ==
+
 {
   "name": "3d-viewer",
   "version": "0.1.0",
@@ -7903,3 +8064,1309 @@
     }
   }
 }
+
+
+
+== FILE: package.json [Infrastructure/Setup] ==
+
+{
+  "name": "3d-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@types/three": "^0.182.0",
+    "lucide-react": "^0.562.0",
+    "next": "16.1.1",
+    "next-intl": "^4.6.1",
+    "postprocessing": "^6.38.2",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "three": "^0.182.0",
+    "three-stdlib": "^2.36.1",
+    "zustand": "^5.0.9"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+
+== FILE: src/app/[locale]/page.tsx [Next.js Route] ==
+
+import { redirect } from 'next/navigation';
+
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function LocaleRootPage({ params }: Props) {
+  const { locale } = await params;
+  
+  // Automatically send users to the 3D workbench
+  redirect(`/${locale}/workbench`);
+}
+
+
+== FILE: src/app/[locale]/workbench/page.tsx [Next.js Route] ==
+
+/* --- src/app/[locale]/workbench/page.tsx --- */
+import { Suspense } from 'react';
+import { Viewport } from '@/core-engine/components/canvas/Viewport';
+import { Model } from '@/core-engine/components/model/Model';
+import { Toolbar } from '@/presentation/ui/viewer-ui/Toolbar';
+
+export default function WorkbenchPage() {
+  // Use a reliable model URL
+  const TEST_MODEL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb';
+
+  return (
+    <main className="h-screen w-full bg-[#050505] relative overflow-hidden">
+      {/* 3D Scene Container */}
+      <div className="absolute inset-0">
+        <Viewport>
+          <Suspense fallback={null}>
+            <Model url={TEST_MODEL} />
+          </Suspense>
+        </Viewport>
+      </div>
+
+      {/* Branded UI Overlay */}
+      <div className="absolute top-8 left-8 pointer-events-none z-10">
+        <h1 className="text-white/20 font-mono text-[10px] tracking-[0.3em] uppercase italic">
+          Anirix_Engine_Core // System_Active
+        </h1>
+      </div>
+
+      <Toolbar />
+    </main>
+  );
+}
+
+
+== FILE: src/app/globals.css [Infrastructure/Setup] ==
+
+@import "tailwindcss";
+
+:root {
+  /* Deep Graphite Palette */
+  --background: #050505;
+  --foreground: #f5f5f5;
+  --sidebar-bg: #111111;
+  --accent-blue: #1caad9; /* Sketchfab signature blue */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent-blue);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Force dark theme for the engine */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, sans-serif;
+  overflow: hidden; /* Prevent scrolling outside the workbench */
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Sketchfab-style cursor interactions */
+canvas {
+  cursor: grab;
+  outline: none;
+}
+
+canvas:active {
+  cursor: grabbing;
+}
+
+/* Custom Thin Scrollbar for the Inspector */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Glassmorphism for tooltips and overlays */
+.glass-panel {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+}
+
+
+== FILE: src/app/layout.tsx [Infrastructure/Setup] ==
+
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
+
+
+
+== FILE: src/app/page.tsx [Infrastructure/Setup] ==
+
+import { redirect } from 'next/navigation';
+
+export default function LocaleRootPage() {
+  // Since this is a 3D Engine, let's redirect directly to the workbench
+  redirect('/en/workbench');
+}
+
+
+== FILE: src/core-engine/components/annotations/Pin.tsx [R3F Scene Component] ==
+
+/* --- src/core-engine/components/annotations/Pin.tsx --- */
+'use client';
+import React from 'react';
+import { Html } from '@react-three/drei';
+
+export const Pin = ({ position, label }: { position: [number, number, number], label: string }) => (
+  <Html position={position} center>
+    <div className="bg-blue-600 text-white px-2 py-1 rounded text-[10px] whitespace-nowrap shadow-lg">
+      {label}
+    </div>
+  </Html>
+);
+
+
+
+== FILE: src/core-engine/components/canvas/Effects.tsx [R3F Scene Component] ==
+
+/* --- src/core-engine/components/canvas/Effects.tsx --- */
+'use client';
+import React from 'react';
+import * as THREE from 'three'; // Import THREE to handle Color types
+import { EffectComposer, Bloom, SSAO, Noise, Vignette } from '@react-three/postprocessing';
+import { useViewerStore } from '@/core-engine/store/use-viewer';
+
+export const Effects = () => {
+  const tier = useViewerStore((s) => s.performanceTier);
+
+  if (tier === 'low') return <></>;
+
+  return (
+    /* Fix 1: 'disableNormalPass' is now 'enableNormalPass'. 
+       Set it to false to achieve the same result. 
+    */
+    <EffectComposer enableNormalPass={false}>
+      <Bloom luminanceThreshold={1} intensity={0.5} levels={9} mipmapBlur />
+      <Vignette eskil={false} offset={0.1} darkness={1.1} />
+      
+      {tier === 'high' ? (
+        <>
+          {/* Fix 2: 'color' expects a THREE.Color object. 
+              Wrap the string in new THREE.Color(). 
+          */}
+          <SSAO 
+            intensity={15} 
+            radius={0.05} 
+            luminanceInfluence={0.5} 
+            color={new THREE.Color('black')} 
+          />
+          <Noise opacity={0.02} />
+        </>
+      ) : <></>}
+    </EffectComposer>
+  );
+};
+
+
+== FILE: src/core-engine/components/canvas/Viewport.tsx [R3F Scene Component] ==
+
+/* --- src/core-engine/components/canvas/Viewport.tsx --- */
+'use client';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Stage, Environment } from '@react-three/drei';
+
+export const Viewport = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Canvas shadows camera={{ position: [0, 0, 5], fov: 45 }}>
+      {/* Stage provides automatic lighting and centering */}
+      <Stage intensity={0.5} environment="city" adjustCamera={true}>
+        {children}
+      </Stage>
+      <OrbitControls makeDefault />
+    </Canvas>
+  );
+};
+
+
+== FILE: src/core-engine/components/model/Model.tsx [R3F Scene Component] ==
+
+'use client';
+import { useGLTF } from '@react-three/drei';
+import { useEffect } from 'react';
+import * as THREE from 'three';
+import { useViewerStore } from '@/core-engine/store/use-viewer';
+import { centerModel } from '@/core-engine/core/scene-math';
+
+export const Model = ({ url }: { url: string }) => {
+  const { scene } = useGLTF(url);
+  const wireframe = useViewerStore((state) => state.wireframe);
+
+  useEffect(() => {
+    if (scene) centerModel(scene);
+    scene.traverse((obj) => {
+      if ((obj as THREE.Mesh).isMesh) {
+        const mesh = obj as THREE.Mesh;
+        if (mesh.material) {
+           (mesh.material as THREE.MeshStandardMaterial).wireframe = wireframe;
+        }
+      }
+    });
+  }, [wireframe, scene]);
+
+  return <primitive object={scene} />;
+};
+
+
+== FILE: src/core-engine/components/stage/Environment.tsx [R3F Scene Component] ==
+
+/* --- src/core-engine/components/stage/Environment.tsx --- */
+'use client';
+import { Environment as DreiEnv, ContactShadows, Float } from '@react-three/drei';
+import { useViewerStore } from '@/core-engine/store/use-viewer';
+
+export const Environment = ({ children }: { children?: React.ReactNode }) => {
+  const { environment, intensity } = useViewerStore();
+  
+  return (
+    <>
+      <DreiEnv preset={environment} />
+      <ambientLight intensity={intensity} />
+      <pointLight position={[10, 10, 10]} intensity={1} castShadow />
+      
+      {/* Provides professional "Ground Contact" shadows without a physical floor */}
+      <ContactShadows 
+        position={[0, -0.01, 0]} 
+        opacity={0.4} 
+        scale={10} 
+        blur={2} 
+        far={4} 
+      />
+      
+      {children}
+    </>
+  );
+};
+
+
+== FILE: src/core-engine/core/camera-controller.ts [3D Math/Core] ==
+
+/* --- src/core-engine/core/camera-controller.ts --- */
+import * as THREE from 'three';
+import { OrbitControls } from 'three-stdlib'; // Import the specific type
+
+export const focusCameraOnObject = (
+  camera: THREE.PerspectiveCamera, 
+  controls: OrbitControls, // Type specified instead of any
+  object: THREE.Object3D
+) => {
+  const box = new THREE.Box3().setFromObject(object);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+
+  const maxSize = Math.max(size.x, size.y, size.z);
+  const fitHeightDistance = maxSize / (2 * Math.atan((Math.PI * camera.fov) / 360));
+  const fitWidthDistance = fitHeightDistance / camera.aspect;
+  const distance = 1.2 * Math.max(fitHeightDistance, fitWidthDistance);
+
+  // Use the center directly to update controls
+  const direction = controls.object.position.clone().sub(controls.target).normalize().multiplyScalar(distance);
+  
+  camera.position.copy(center).add(direction);
+  controls.target.copy(center);
+  controls.update();
+};
+
+
+== FILE: src/core-engine/core/exporter.ts [3D Math/Core] ==
+
+/* --- src/core-engine/core/exporter.ts --- */
+import * as THREE from 'three';
+
+/**
+ * Captures the current frame of the renderer and triggers a download.
+ */
+export const exportScreenshot = (
+  renderer: THREE.WebGLRenderer,
+  scene: THREE.Scene,
+  camera: THREE.Camera
+) => {
+  const canvas = renderer.domElement;
+
+  // Type guard: Ensure we are dealing with a standard browser canvas
+  if (!(canvas instanceof HTMLCanvasElement)) {
+    console.error("Screenshot failed: Renderer is not using an HTMLCanvasElement.");
+    return;
+  }
+
+  // Force a render pass to ensure the drawing buffer is current
+  renderer.render(scene, camera);
+
+  const link = document.createElement('a');
+  link.setAttribute('download', `anirix-capture-${Date.now()}.png`);
+  
+  // toDataURL is now safe to call
+  const dataURL = canvas.toDataURL('image/png');
+  link.setAttribute('href', dataURL.replace('image/png', 'image/octet-stream'));
+  
+  link.click();
+};
+
+
+== FILE: src/core-engine/core/loaders.ts [3D Math/Core] ==
+
+/* --- @/core-engine/core/loaders.ts --- */
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js';
+
+export const configureGLTFLoader = (renderer: THREE.WebGLRenderer) => {
+  const dracoLoader = new DRACOLoader().setDecoderPath('/draco/');
+  const ktx2Loader = new KTX2Loader()
+    .setTranscoderPath('/basis/')
+    .detectSupport(renderer);
+
+  const gltfLoader = new GLTFLoader();
+  gltfLoader.setDRACOLoader(dracoLoader);
+  gltfLoader.setKTX2Loader(ktx2Loader);
+  
+  return gltfLoader;
+};
+
+
+== FILE: src/core-engine/core/materials.ts [3D Math/Core] ==
+
+/* --- src/core-engine/core/materials.ts --- */
+import * as THREE from 'three';
+export const applyProps = (mesh: THREE.Mesh, props: unknown) => {
+  if (mesh.material) Object.assign(mesh.material, props);
+};
+
+
+== FILE: src/core-engine/core/scene-math.ts [3D Math/Core] ==
+
+/* --- src/core-engine/core/scene-math.ts --- */
+import * as THREE from 'three';
+
+export const getFitValues = (obj: THREE.Object3D) => {
+  const box = new THREE.Box3().setFromObject(obj);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  return { center, size, box };
+};
+
+/**
+ * Physically centers an object so its middle point is at (0,0,0)
+ */
+export const centerModel = (obj: THREE.Object3D) => {
+  const { center } = getFitValues(obj);
+  obj.position.x -= center.x;
+  obj.position.y -= center.y;
+  obj.position.z -= center.z;
+};
+
+
+== FILE: src/core-engine/hooks/use-animations.ts [Infrastructure/Setup] ==
+
+/* --- src/core-engine/hooks/use-animations.ts --- */
+import { useEffect, useState } from 'react';
+import * as THREE from 'three';
+import { useFrame } from '@react-three/fiber';
+
+export const useAnimations = (model: THREE.Group, animations: THREE.AnimationClip[]) => {
+  const [mixer] = useState(() => new THREE.AnimationMixer(model));
+
+  useEffect(() => {
+    if (animations.length > 0) {
+      const action = mixer.clipAction(animations[0]);
+      action.play();
+    }
+    return () => {
+      mixer.stopAllAction();
+    };
+  }, [mixer, animations]);
+
+  useFrame((state, delta) => {
+    mixer.update(delta);
+  });
+
+  return mixer;
+};
+
+
+== FILE: src/core-engine/hooks/use-raycaster.ts [Infrastructure/Setup] ==
+
+/* --- src/core-engine/hooks/use-raycaster.ts --- */
+import { useViewerStore } from '@/core-engine/store/use-viewer';
+import * as THREE from 'three';
+import { ThreeEvent } from '@react-three/fiber'; // Import the correct event type
+
+export const useRaycaster = () => {
+  const setSelectedMesh = useViewerStore((s) => s.setSelectedMesh);
+
+  // Replace 'any' with ThreeEvent<PointerEvent>
+  return (event: ThreeEvent<PointerEvent>) => {
+    event.stopPropagation();
+    
+    // Type guard to ensure the clicked object is a Mesh
+    if (event.object && (event.object as THREE.Mesh).isMesh) {
+      setSelectedMesh(event.object.name);
+    }
+  };
+};
+
+
+== FILE: src/core-engine/index.ts [Infrastructure/Setup] ==
+
+/* --- src/core-engine/index.ts --- */
+// Components
+export * from './components/canvas/Viewport';
+export * from './components/canvas/Effects';
+export * from './components/model/Model';
+export * from './components/stage/Environment';
+export * from './components/annotations/Pin';
+
+// Logic & Hooks
+export * from './core/loaders';
+export * from './core/exporter';
+export * from './core/scene-math';
+export * from './core/camera-controller';
+export * from './hooks/use-animations';
+export * from './hooks/use-raycaster';
+
+// State & Types
+export * from './store/use-viewer';
+export * from './types/engine';
+
+
+== FILE: src/core-engine/store/use-viewer.ts [Zustand State] ==
+
+import { create } from 'zustand';
+import { ViewerSettings } from '@/core-engine/types/engine';
+
+interface ViewerStore extends ViewerSettings {
+  // Actions
+  updateSettings: (settings: Partial<ViewerSettings>) => void;
+  setWireframe: (wireframe: boolean) => void;
+  setAutoRotate: (autoRotate: boolean) => void;
+  setSelectedMesh: (name: string | null) => void;
+  setLoadingProgress: (p: number) => void;
+}
+
+export const useViewerStore = create<ViewerStore>((set) => ({
+  // 1. Initial State
+  autoRotate: false,
+  wireframe: false,
+  intensity: 0.5,
+  environment: 'city',
+  selectedMesh: null,
+  performanceTier: 'medium',
+  loadingProgress: 0,
+
+  // 2. Actions (Implementation must match Interface exactly)
+  updateSettings: (newSettings) => 
+    set((state) => ({ ...state, ...newSettings })),
+
+  setWireframe: (wireframe: boolean) => 
+    set(() => ({ wireframe })),
+
+  setAutoRotate: (autoRotate: boolean) => 
+    set(() => ({ autoRotate })),
+
+  setSelectedMesh: (selectedMesh: string | null) => 
+    set(() => ({ selectedMesh })),
+
+  setLoadingProgress: (loadingProgress: number) => 
+    set(() => ({ loadingProgress })),
+}));
+
+
+== FILE: src/core-engine/types/engine.ts [Infrastructure/Setup] ==
+
+/* --- @/core-engine/types/engine.ts --- */
+export type EnvPreset = 'city' | 'studio' | 'lobby' | 'sunset';
+
+export interface ViewerSettings {
+  autoRotate: boolean;
+  wireframe: boolean;
+  intensity: number;
+  environment: EnvPreset;
+  selectedMesh: string | null;
+  performanceTier: 'low' | 'medium' | 'high';
+  loadingProgress: number;
+}
+
+
+== FILE: src/i18n.ts [Infrastructure/Setup] ==
+
+import { getRequestConfig } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+
+// Define your supported locales
+const locales = ['en'];
+
+export default getRequestConfig(async ({ locale }) => {
+  // 1. Check if locale exists and is supported
+  // This satisfies the runtime logic
+  if (!locale || !locales.includes(locale)) {
+    notFound();
+  }
+
+  return {
+    // 2. We use 'as string' to tell TypeScript: 
+    // "I have already checked that this is not undefined above."
+    locale: locale as string, 
+    messages: (await import(`../messages/${locale}.json`)).default
+  };
+});
+
+
+== FILE: src/infrastructure/api/settings-api.ts [Infrastructure/Setup] ==
+
+/* --- src/infrastructure/api/settings-api.ts --- */
+import { ViewerSettings } from '@/core-engine/types/engine';
+
+export const saveSettings = async (id: string, settings: Partial<ViewerSettings>) => {
+  // Logic to save to local storage or external DB
+  localStorage.setItem(`anirix_settings_${id}`, JSON.stringify(settings));
+};
+
+/* --- src/infrastructure/validators/model-validator.ts --- */
+import * as THREE from 'three';
+
+export const validateModelSize = (scene: THREE.Group): boolean => {
+  const box = new THREE.Box3().setFromObject(scene);
+  const size = box.getSize(new THREE.Vector3());
+  const maxDimension = Math.max(size.x, size.y, size.z);
+  
+  // Reject models that are technically "invisible" or infinitely large
+  return maxDimension > 0 && maxDimension < 10000;
+};
+
+
+== FILE: src/infrastructure/validators/gpu-detector.ts [Infrastructure/Setup] ==
+
+/* --- @/infrastructure/validators/gpu-detector.ts --- */
+export const detectGPU = () => {
+  if (typeof window === 'undefined') return 'medium';
+  const canvas = document.createElement('canvas');
+  const gl = canvas.getContext('webgl');
+  if (!gl) return 'low';
+  
+  const debug = gl.getExtension('WEBGL_debug_renderer_info');
+  const renderer = debug ? gl.getParameter(debug.UNMASKED_RENDERER_WEBGL) : "";
+  
+  if (/NVIDIA|AMD|Radeon/.test(renderer)) return 'high';
+  if (/Intel|Mesa|Mobile|Apple/.test(renderer)) return 'medium';
+  return 'low';
+};
+
+
+== FILE: src/infrastructure/validators/model-validator.ts [Infrastructure/Setup] ==
+
+/* --- src/infrastructure/validators/model-validator.ts --- */
+import * as THREE from 'three';
+
+export interface ValidationResult {
+  isValid: boolean;
+  polygons: number;
+  error?: string;
+}
+
+/** Validates 3D meshes before they are accepted by the Viewer */
+export const validateModel = (object: THREE.Object3D): ValidationResult => {
+  let triangles = 0;
+  
+  object.traverse((child) => {
+    if ((child as THREE.Mesh).isMesh) {
+      const mesh = child as THREE.Mesh;
+      if (mesh.geometry.index) {
+        triangles += mesh.geometry.index.count / 3;
+      } else {
+        triangles += mesh.geometry.attributes.position.count / 3;
+      }
+    }
+  });
+
+  const MAX_POLYS = 1_500_000;
+  return {
+    isValid: triangles < MAX_POLYS,
+    polygons: triangles,
+    error: triangles > MAX_POLYS ? 'Polycount too high for web' : undefined
+  };
+};
+
+
+== FILE: src/middleware.ts [Infrastructure/Setup] ==
+
+import createMiddleware from 'next-intl/middleware';
+
+export default createMiddleware({
+  locales: ['en'],
+  defaultLocale: 'en'
+});
+
+export const config = {
+  // Match all pathnames except for
+  // - /api (API routes)
+  // - /_next (Next.js internals)
+  // - /_proxy (Proxy internals)
+  // - /static, /favicon.ico, etc.
+  matcher: ['/((?!api|_next|_proxy|_vercel|.*\\..*).*)']
+};
+
+
+== FILE: src/presentation/components/ControlButton.tsx [Infrastructure/Setup] ==
+
+'use client';
+import React from 'react';
+
+interface ControlButtonProps {
+  /** The Lucide icon component */
+  icon: React.ReactNode;
+  /** Whether the toggle is currently active */
+  active?: boolean;
+  /** Click handler */
+  onClick?: () => void;
+  /** Tooltip and accessibility label */
+  label: string;
+  /** Optional extra classes */
+  className?: string;
+}
+
+export const ControlButton = ({ 
+  icon, 
+  active = false, 
+  onClick, 
+  label,
+  className = "" 
+}: ControlButtonProps) => (
+  <button
+    onClick={onClick}
+    title={label}
+    aria-label={label}
+    className={`p-2 rounded-md transition-all duration-200 flex items-center justify-center cursor-pointer ${
+      active 
+        ? 'text-[#1caad9] bg-[#1caad9]/15' // Signature Sketchfab Blue
+        : 'text-zinc-400 hover:bg-white/5 hover:text-zinc-200'
+    } ${className}`}
+  >
+    {icon}
+  </button>
+);
+
+
+== FILE: src/presentation/components/Slider.tsx [Infrastructure/Setup] ==
+
+'use client';
+
+import React from 'react';
+
+interface SliderProps {
+  /** Label for the slider */
+  label: string;
+  /** Current value */
+  value: number;
+  /** Minimum range */
+  min: number;
+  /** Maximum range */
+  max: number;
+  /** Increment step (e.g., 0.01 for smooth precision) */
+  step?: number;
+  /** Callback for value changes */
+  onChange: (value: number) => void;
+  /** Optional unit suffix (e.g., '%', 'px') */
+  unit?: string;
+}
+
+/**
+ * A specialized range input for the Anirix Inspector.
+ * Optimized for high-frequency updates (60fps) during 3D property manipulation.
+ */
+export const Slider = ({ 
+  label, 
+  value, 
+  min, 
+  max, 
+  step = 0.01, 
+  onChange, 
+  unit = '' 
+}: SliderProps) => {
+  return (
+    <div className="flex flex-col gap-2 w-full p-2 group">
+      {/* Label Area */}
+      <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-500 group-hover:text-zinc-300 transition-colors">
+        <span>{label}</span>
+        <span className="font-mono text-blue-400">
+          {value.toFixed(2)}{unit}
+        </span>
+      </div>
+
+      {/* Range Input */}
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(parseFloat(e.target.value))}
+        className="
+          w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer 
+          accent-blue-600 hover:accent-blue-500 transition-all
+          [&::-webkit-slider-thumb]:appearance-none
+          [&::-webkit-slider-thumb]:w-3
+          [&::-webkit-slider-thumb]:h-3
+          [&::-webkit-slider-thumb]:rounded-full
+          [&::-webkit-slider-thumb]:bg-white
+          [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(37,99,235,0.5)]
+        "
+      />
+    </div>
+  );
+};
+
+
+== FILE: src/presentation/components/Toggle.tsx [Infrastructure/Setup] ==
+
+'use client';
+
+import React from 'react';
+
+interface ToggleProps {
+  /** The text displayed next to the switch */
+  label: string;
+  /** The current state of the toggle */
+  active: boolean;
+  /** Function triggered when the toggle is clicked */
+  onClick: () => void;
+}
+
+/**
+ * A specialized UI Toggle switch for the Anirix 3D Engine.
+ * Features a hardware-accelerated sliding transition and dark-theme aesthetics.
+ */
+export const Toggle = ({ label, active, onClick }: ToggleProps) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`group flex items-center justify-between w-full p-2.5 rounded-md transition-all duration-200 border ${
+        active 
+          ? 'bg-blue-600/10 border-blue-500/30 text-blue-400' 
+          : 'bg-zinc-900/50 border-white/5 hover:border-white/10 text-zinc-400'
+      }`}
+    >
+      <span className="text-[10px] font-bold uppercase tracking-widest">
+        {label}
+      </span>
+      
+      {/* The Switch Track */}
+      <div className={`
+        relative w-8 h-4 rounded-full transition-colors duration-300
+        ${active ? 'bg-blue-600' : 'bg-zinc-800'}
+      `}>
+        {/* The Sliding Knob */}
+        <div className={`
+          absolute top-1 w-2 h-2 bg-white rounded-full shadow-sm transition-all duration-300 ease-in-out
+          ${active ? 'left-5' : 'left-1'}
+        `} />
+      </div>
+    </button>
+  );
+};
+
+
+== FILE: src/presentation/ui/inspector/MaterialEditor.tsx [Infrastructure/Setup] ==
+
+/* --- src/presentation/ui/inspector/MaterialEditor.tsx --- */
+import { Slider } from '@/presentation/components/Slider';
+import { useViewerStore } from '@/core-engine/store/use-viewer';
+
+export const MaterialEditor = () => {
+  const { intensity, updateSettings } = useViewerStore();
+
+  return (
+    <div className="space-y-4">
+      <Slider 
+        label="Environment Intensity"
+        value={intensity}
+        min={0}
+        max={5}
+        onChange={(val) => updateSettings({ intensity: val })}
+      />
+    </div>
+  );
+};
+
+
+== FILE: src/presentation/ui/inspector/SceneTree.tsx [Infrastructure/Setup] ==
+
+/* --- src/presentation/ui/inspector/SceneTree.tsx --- */
+'use client';
+import React from 'react';
+import * as THREE from 'three';
+import { useViewerStore } from '@/core-engine/store/use-viewer';
+
+interface SceneTreeProps {
+  scene: THREE.Group | THREE.Object3D | null;
+}
+
+export const SceneTree = ({ scene }: SceneTreeProps) => {
+  const { selectedMesh, setSelectedMesh } = useViewerStore();
+  
+  // Define meshes as an array of THREE.Mesh instead of any[]
+  const meshes: THREE.Mesh[] = [];
+
+  // Traverse the scene and safely push only meshes
+  scene?.traverse((obj) => {
+    if ((obj as THREE.Mesh).isMesh) {
+      meshes.push(obj as THREE.Mesh);
+    }
+  });
+
+  return (
+    <div className="p-4">
+      <h4 className="text-[10px] font-bold text-zinc-600 mb-2 uppercase">Hierarchy</h4>
+      <div className="space-y-1">
+        {meshes.map((m) => (
+          <div 
+            key={m.uuid} 
+            onClick={() => setSelectedMesh(m.name)}
+            className={`cursor-pointer p-1 text-sm rounded transition-colors ${
+              selectedMesh === m.name ? 'bg-blue-600 text-white' : 'hover:bg-white/5 text-zinc-300'
+            }`}
+          >
+            <span className="opacity-50 mr-2">📦</span>
+            {m.name || 'Unnamed Mesh'}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
+== FILE: src/presentation/ui/inspector/Sidebar.tsx [Infrastructure/Setup] ==
+
+'use client';
+import React from 'react';
+import { Slider } from '@/presentation/components/Slider';
+import { Toggle } from '@/presentation/components/Toggle';
+import { useViewerStore } from '@/core-engine/store/use-viewer';
+
+export const Sidebar = () => {
+  const { intensity, updateSettings, wireframe, setWireframe } = useViewerStore();
+
+  return (
+    <aside className="w-72 h-full bg-[#111111] border-l border-white/5 flex flex-col text-white">
+      <div className="p-4 border-b border-white/5 flex justify-between items-center">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400">Model Inspector</h2>
+        <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-zinc-500">PRO</span>
+      </div>
+
+      <div className="flex-1 overflow-y-auto custom-scrollbar">
+        {/* Material Section */}
+        <section className="p-4 space-y-4">
+          <div className="text-[10px] font-bold text-blue-500 uppercase tracking-tighter">Properties</div>
+          <Slider 
+            label="Exposure" 
+            value={intensity} 
+            min={0} max={2} 
+            onChange={(val) => updateSettings({ intensity: val })} 
+          />
+          <Toggle 
+            label="X-Ray (Wireframe)" 
+            active={wireframe} 
+            onClick={() => setWireframe(!wireframe)} 
+          />
+        </section>
+
+        <section className="p-4 border-t border-white/5">
+          <div className="text-[10px] font-bold text-blue-500 uppercase tracking-tighter">Scene Environment</div>
+          {/* Add more controls here */}
+        </section>
+      </div>
+    </aside>
+  );
+};
+
+
+== FILE: src/presentation/ui/layout/ViewerLayout.tsx [Infrastructure/Setup] ==
+
+/* --- src/presentation/ui/layout/ViewerLayout.tsx --- */
+import React from 'react';
+import * as THREE from 'three'; // Import Three for proper typing
+import { Viewport } from '@/core-engine/components/canvas/Viewport';
+import { Sidebar } from '@/presentation/ui/inspector/Sidebar';
+
+interface ViewerLayoutProps {
+  children: React.ReactNode;
+  /** * The 3D scene graph to be inspected. 
+   * Typed as Object3D to support Groups, Scenes, or individual Meshes.
+   */
+  scene?: THREE.Object3D | null; 
+  showInspector?: boolean;
+}
+
+export const ViewerLayout = ({ 
+  children, 
+  scene = null, 
+  showInspector = false 
+}: ViewerLayoutProps) => {
+  return (
+    <div className="flex h-screen w-full bg-black overflow-hidden">
+      {/* Primary 3D Viewport Area */}
+      <div className="flex-1 relative">
+        <Viewport>
+          {children}
+        </Viewport>
+      </div>
+      
+      {/* Conditional Sidebar: Only rendered if showInspector is true */}
+      {showInspector && (
+        <Sidebar scene={scene} />
+      )}
+    </div>
+  );
+};
+
+
+== FILE: src/presentation/ui/viewer-ui/Toolbar.tsx [Infrastructure/Setup] ==
+
+/* --- src/presentation/ui/viewer-ui/Toolbar.tsx --- */
+'use client';
+import React from 'react';
+import { Maximize, Settings, Box, RotateCw, Info, HelpCircle } from 'lucide-react';
+import { useViewerStore } from '@/core-engine/store/use-viewer';
+import { ControlButton } from '@/presentation/components/ControlButton';
+
+export const Toolbar = () => {
+  const { wireframe, setWireframe, autoRotate, setAutoRotate } = useViewerStore();
+
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  };
+
+  return (
+    <div className="absolute bottom-0 left-0 w-full h-14 bg-gradient-to-t from-black/90 to-transparent flex items-center justify-between px-4 z-50 select-none">
+      
+      {/* LEFT: Model Info Cluster */}
+      <div className="flex items-center gap-3">
+        <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center shadow-lg">
+          <Box size={18} className="text-white" />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-white text-xs font-bold leading-none">Anirix Model Viewer</span>
+          <span className="text-zinc-500 text-[10px] uppercase tracking-wider">v1.0.4 // Production</span>
+        </div>
+      </div>
+
+      {/* RIGHT: Control Cluster */}
+      <div className="flex items-center gap-1">
+        
+        {/* Wireframe Toggle */}
+        <ControlButton 
+          active={wireframe} 
+          onClick={() => setWireframe(!wireframe)}
+          icon={<Box size={18} />}
+          label="Wireframe"
+        />
+
+        {/* Rotation Toggle */}
+        <ControlButton 
+          active={autoRotate} 
+          onClick={() => setAutoRotate(!autoRotate)}
+          icon={<RotateCw size={18} />}
+          label="Auto-Rotate"
+        />
+
+        <div className="w-[1px] h-6 bg-white/10 mx-2" />
+
+        {/* Standard Viewer Tools */}
+        <ControlButton icon={<Settings size={18} />} label="Settings" />
+        <ControlButton icon={<Info size={18} />} label="Model Inspector" />
+        <ControlButton icon={<Maximize size={18} />} onClick={toggleFullScreen} label="Fullscreen" />
+        
+        <button className="ml-2 text-zinc-500 hover:text-white transition-colors">
+          <HelpCircle size={20} />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+
+
+== FILE: tools/combine-files.js [Infrastructure/Setup] ==
+
+/* eslint-disable @typescript-eslint/no-require-imports */
+/**
+ * combine-files.js (ANIRIX ENGINE VERSION)
+ * Output: anirix-engine-full.txt
+ */
+
+const fs = require("fs");
+const path = require("path");
+
+const projectRoot = path.join(__dirname, "../");
+const outputFile = path.join(__dirname, "anirix-3d-viewer.txt");
+
+const allowedExtensions = [".ts", ".tsx", ".js", ".jsx", ".json", ".md", ".css"];
+
+const excludedFolders = [
+  "node_modules", ".next", "dist", "build", ".turbo", ".git", 
+  "public/draco", "public/basis" // Exclude 3D binaries (too large)
+];
+
+const alwaysIncludeFiles = [
+  "next.config.ts", "tsconfig.json", "package.json", "init-engine.js"
+];
+
+function isBinary(filePath) {
+  try {
+    const buffer = fs.readFileSync(filePath);
+    return buffer.includes(0);
+  } catch { return true; }
+}
+
+function getAllFiles(dir, fileList = []) {
+  const files = fs.readdirSync(dir);
+  for (const filename of files) {
+    const fullPath = path.join(dir, filename);
+    const relative = path.relative(projectRoot, fullPath);
+    const stat = fs.statSync(fullPath);
+
+    if (stat.isDirectory()) {
+      if (excludedFolders.some(f => relative.startsWith(f))) continue;
+      getAllFiles(fullPath, fileList);
+      continue;
+    }
+
+    const ext = path.extname(filename).toLowerCase();
+    const isAlwaysIncluded = alwaysIncludeFiles.includes(filename);
+
+    if (allowedExtensions.includes(ext) || isAlwaysIncluded) {
+      if (!isBinary(fullPath)) {
+        fileList.push({ path: fullPath, relative: relative });
+      }
+    }
+  }
+  return fileList;
+}
+
+function generateTree(dir, prefix = "") {
+  let tree = "";
+  const files = fs.readdirSync(dir);
+  files.forEach((file, index) => {
+    const fullPath = path.join(dir, file);
+    const relative = path.relative(projectRoot, fullPath);
+    if (excludedFolders.some(f => relative.startsWith(f))) return;
+    const isLast = index === files.length - 1;
+    const connector = isLast ? "└── " : "├── ";
+    tree += `${prefix}${connector}${file}\n`;
+    if (fs.statSync(fullPath).isDirectory()) {
+      tree += generateTree(fullPath, prefix + (isLast ? "    " : "│   "));
+    }
+  });
+  return tree;
+}
+
+function detectType(filepath) {
+  if (filepath.includes("core-engine/core")) return "3D Math/Core";
+  if (filepath.includes("core-engine/components")) return "R3F Scene Component";
+  if (filepath.includes("core-engine/store")) return "Zustand State";
+  if (filepath.includes("presentation/viewer-ui")) return "3D UI Overlay";
+  if (filepath.includes("app/[locale]")) return "Next.js Route";
+  return "Infrastructure/Setup";
+}
+
+function run() {
+  console.log("🚀 Exporting Anirix Engine Codebase...");
+  let content = `# 📁 ANIRIX ENGINE SOURCE\nGenerated: ${new Date().toISOString()}\n\n`;
+  content += `📂 STRUCTURE\n${generateTree(projectRoot)}\n\n📦 FILES\n`;
+
+  const files = getAllFiles(projectRoot);
+  for (const file of files) {
+    const fileContent = fs.readFileSync(file.path, "utf-8");
+    content += `\n== FILE: ${file.relative} [${detectType(file.relative)}] ==\n\n${fileContent}\n\n`;
+  }
+
+  fs.writeFileSync(outputFile, content);
+  console.log(`✨ Export complete: ${outputFile}`);
+}
+
+run();
+
+
+== FILE: tools/combine-selected-modules.js [Infrastructure/Setup] ==
+
+/* eslint-disable @typescript-eslint/no-require-imports */
+/**
+ * combine-selected-modules.js (ANIRIX MODULE FOCUS)
+ */
+
+const fs = require("fs");
+const path = require("path");
+
+const ROOT_DIR = path.resolve(__dirname, "..");
+const INCLUDE_EXTENSIONS = [".tsx", ".ts"];
+
+// Modified to focus on the 3D Engine modules
+const selectedModules = [
+  "src/core-engine",      // The entire 3D Core
+  "src/presentation/viewer-ui" // The UI controls
+];
+
+function getFilesRecursively(dir) {
+  let results = [];
+  if (!fs.existsSync(dir)) return results;
+  const items = fs.readdirSync(dir);
+  for (const item of items) {
+    const fullPath = path.join(dir, item);
+    const stat = fs.statSync(fullPath);
+    if (stat.isDirectory()) {
+      results = results.concat(getFilesRecursively(fullPath));
+    } else if (INCLUDE_EXTENSIONS.includes(path.extname(item))) {
+      results.push(fullPath);
+    }
+  }
+  return results;
+}
+
+function findImports(content) {
+  const matches = content.matchAll(/from\s+["'](@\/[^"']+)["']/g);
+  return new Set(Array.from(matches, m => m[1]));
+}
+
+function combineModules() {
+  console.log("🔎 Extracting 3D Engine Module...");
+  let initialFiles = [];
+  selectedModules.forEach(mod => {
+    const fullPath = path.join(ROOT_DIR, mod);
+    if (fs.statSync(fullPath).isDirectory()) {
+      initialFiles = initialFiles.concat(getFilesRecursively(fullPath));
+    }
+  });
+
+  let output = `# 🧊 ANIRIX MODULE EXPORT\n`;
+  initialFiles.forEach(file => {
+    const relative = path.relative(ROOT_DIR, file);
+    const content = fs.readFileSync(file, "utf-8");
+    output += `\n/* --- ${relative} --- */\n${content}\n`;
+  });
+
+  const outputFile = path.join(__dirname, "anirix-3d-module.txt");
+  fs.writeFileSync(outputFile, output.trim(), "utf-8");
+  console.log(`✅ Combined ${initialFiles.length} files into ${outputFile}`);
+}
+
+combineModules();
+
+
+== FILE: tsconfig.json [Infrastructure/Setup] ==
+
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+
+

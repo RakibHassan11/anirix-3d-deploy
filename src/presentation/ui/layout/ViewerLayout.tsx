@@ -15,7 +15,6 @@ interface ViewerLayoutProps {
 
 export const ViewerLayout = ({ 
   children, 
-  scene = null, 
   showInspector = false 
 }: ViewerLayoutProps) => {
   return (

@@ -1,13 +1,28 @@
+/* --- src/shared/store/useViewerStore.ts --- */
 import { create } from 'zustand';
 import { ViewerSettings } from '@/core-engine/types/engine';
 
 interface ViewerStore extends ViewerSettings {
+  // Streaming States
+  isLoading: boolean;
+  streamStatus: string;
+  loadingProgress: number;
+  
+  // Hierarchy State (Crucial for the Sidebar!)
+  sceneHierarchy: string[]; 
+
   // Actions
   updateSettings: (settings: Partial<ViewerSettings>) => void;
   setWireframe: (wireframe: boolean) => void;
   setAutoRotate: (autoRotate: boolean) => void;
   setSelectedMesh: (name: string | null) => void;
+  
+  // Streaming & Hierarchy Actions
   setLoadingProgress: (p: number) => void;
+  setIsLoading: (loading: boolean) => void;
+  setStreamStatus: (status: string) => void;
+  setSceneHierarchy: (names: string[]) => void; // Fixed the missing action
+  resetLoading: () => void;
 }
 
 export const useViewerStore = create<ViewerStore>((set) => ({
@@ -18,21 +33,35 @@ export const useViewerStore = create<ViewerStore>((set) => ({
   environment: 'city',
   selectedMesh: null,
   performanceTier: 'medium',
+  
   loadingProgress: 0,
+  isLoading: false,
+  streamStatus: 'Idle',
+  sceneHierarchy: [], // Initialized as empty
 
-  // 2. Actions (Implementation must match Interface exactly)
+  // 2. Actions
   updateSettings: (newSettings) => 
     set((state) => ({ ...state, ...newSettings })),
 
-  setWireframe: (wireframe: boolean) => 
-    set(() => ({ wireframe })),
+  setWireframe: (wireframe) => set({ wireframe }),
+  setAutoRotate: (autoRotate) => set({ autoRotate }),
+  setSelectedMesh: (selectedMesh) => set({ selectedMesh }),
 
-  setAutoRotate: (autoRotate: boolean) => 
-    set(() => ({ autoRotate })),
+  setLoadingProgress: (p) => set(() => ({ 
+    loadingProgress: p,
+    isLoading: p < 100 
+  })),
 
-  setSelectedMesh: (selectedMesh: string | null) => 
-    set(() => ({ selectedMesh })),
+  setIsLoading: (isLoading) => set({ isLoading }),
+  setStreamStatus: (streamStatus) => set({ streamStatus }),
+  
+  // Fixed: Now Model.tsx can call this without errors
+  setSceneHierarchy: (sceneHierarchy) => set({ sceneHierarchy }),
 
-  setLoadingProgress: (loadingProgress: number) => 
-    set(() => ({ loadingProgress })),
+  resetLoading: () => set({ 
+    loadingProgress: 0, 
+    isLoading: false, 
+    streamStatus: 'Idle',
+    sceneHierarchy: []
+  }),
 }));

@@ -29,7 +29,7 @@ export const ViewerLayout = ({
       
       {/* Conditional Sidebar: Only rendered if showInspector is true */}
       {showInspector && (
-        <Sidebar scene={scene} />
+        <Sidebar  />
       )}
     </div>
   );

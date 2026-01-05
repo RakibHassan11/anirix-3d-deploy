@@ -8,7 +8,7 @@ const fs = require("fs");
 const path = require("path");
 
 const projectRoot = path.join(__dirname, "../");
-const outputFile = path.join(__dirname, "anirix-3d-viewer.txt");
+const outputFile = path.join(__dirname, "anirix-3d-engine.txt");
 
 const allowedExtensions = [".ts", ".tsx", ".js", ".jsx", ".json", ".md", ".css"];
 
